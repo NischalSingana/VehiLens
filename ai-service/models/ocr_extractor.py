@@ -53,6 +53,10 @@ def preprocess_plate_for_ocr(plate_image: np.ndarray, method='standard') -> np.n
             blur = cv2.GaussianBlur(gray, (5,5), 0)
             _, thresh = cv2.threshold(blur, 0, 255, cv2.THRESH_BINARY + cv2.THRESH_OTSU)
             
+        # Grayscale: Simple conversion, let EasyOCR handle thresholding
+        elif method == 'grayscale':
+            return gray
+            
         else:
             return gray
 
@@ -116,7 +120,7 @@ def extract_text_with_preprocessing(plate_image: np.ndarray) -> Optional[Dict]:
         'debug': {'attempts': 0}
     }
     
-    methods = ['standard', 'enhanced', 'otsu']
+    methods = ['grayscale', 'standard', 'enhanced', 'otsu']
     
     for method in methods:
         try:
