@@ -1,0 +1,23 @@
+# Python AI Service
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+*.egg-info/
+dist/
+build/
+
+# YOLO models
+*.pt
+*.weights
+runs/
+
+# EasyOCR
+.EasyOCR/
+
+# IDE
+.vscode/
+.idea/
