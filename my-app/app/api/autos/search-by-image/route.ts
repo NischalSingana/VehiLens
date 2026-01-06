@@ -46,12 +46,19 @@ export async function POST(request: NextRequest) {
             }
 
             aiResponse = await response.json();
-        } catch (aiError) {
-            console.error('AI service error:', aiError);
+        } catch (aiError: any) {
+            console.error('AI SERVICE CONNECTION ERROR:', aiError);
+            console.error('AI Service URL used:', aiServiceUrl);
+            console.error('Error Stack:', aiError.stack);
+
+            // Differentiate between 4xx/5xx from AI service vs Connection Refused
+            const errorMessage = aiError.message || 'Unknown AI service error';
+
             return NextResponse.json(
                 {
-                    error: 'AI service unavailable. Please ensure the Python service is running.',
-                    details: 'Could not connect to vehicle detection service'
+                    error: 'AI service communication failed',
+                    details: errorMessage,
+                    url: aiServiceUrl
                 },
                 { status: 503 }
             );
@@ -66,10 +73,14 @@ export async function POST(request: NextRequest) {
             detectionBox: aiResponse.detectionBox,
             matchedAutos: matchedAuto ? [matchedAuto] : [],
         });
-    } catch (error) {
-        console.error('Error processing image search:', error);
+    } catch (error: any) {
+        console.error('SERVER ERROR during image search:', error);
+        console.error('Error Stack:', error.stack);
         return NextResponse.json(
-            { error: 'Failed to process image search' },
+            {
+                error: 'Failed to process image search',
+                details: error.message
+            },
             { status: 500 }
         );
     }
