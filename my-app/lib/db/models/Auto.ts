@@ -28,7 +28,9 @@ export async function createAuto(auto: Omit<Auto, '_id' | 'createdAt' | 'updated
     return { ...newAuto, _id: result.insertedId } as Auto;
 }
 
-export async function findAutoByVehicleNumber(vehicleNumber: string): Promise<Auto | null> {
+export async function findAutoByVehicleNumber(vehicleNumber: string | null | undefined): Promise<Auto | null> {
+    if (!vehicleNumber) return null;
+
     const collection = await getAutosCollection();
     // Normalize: Remove all spaces for database query
     const cleanNumber = vehicleNumber.replace(/\s/g, '');
