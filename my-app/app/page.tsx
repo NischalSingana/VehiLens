@@ -29,11 +29,17 @@ export default function Home() {
       const response = await fetch(`/api/autos?page=${pageNum}&limit=20`);
       const data = await response.json();
 
-      setAutos(data.autos);
-      setTotalPages(data.totalPages);
-      setPage(pageNum);
+      if (response.ok && Array.isArray(data.autos)) {
+        setAutos(data.autos);
+        setTotalPages(data.totalPages || 1);
+        setPage(pageNum);
+      } else {
+        console.error('Failed to fetch data:', data.error);
+        setAutos([]);
+      }
     } catch (error) {
       console.error('Error fetching autos:', error);
+      setAutos([]);
     } finally {
       setLoading(false);
     }
@@ -53,10 +59,15 @@ export default function Home() {
       const response = await fetch(`/api/autos/search?q=${encodeURIComponent(query)}&type=${type}`);
       const data = await response.json();
 
-      setAutos(data.autos);
-      setTotalPages(1); // Search results don't have pagination
+      if (response.ok && Array.isArray(data.autos)) {
+        setAutos(data.autos);
+        setTotalPages(1); // Search results don't have pagination
+      } else {
+        setAutos([]);
+      }
     } catch (error) {
       console.error('Error searching autos:', error);
+      setAutos([]);
     } finally {
       setSearching(false);
     }

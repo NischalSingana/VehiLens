@@ -17,10 +17,14 @@ export async function GET(request: NextRequest) {
             totalPages,
             limit,
         });
-    } catch (error) {
-        console.error('Error fetching autos:', error);
+    } catch (error: any) {
+        console.error('SERVER ERROR fetching autos:', error);
+        console.error('Error Stack:', error.stack);
         return NextResponse.json(
-            { error: 'Failed to fetch auto records' },
+            {
+                error: 'Failed to fetch auto records',
+                details: error.message
+            },
             { status: 500 }
         );
     }
