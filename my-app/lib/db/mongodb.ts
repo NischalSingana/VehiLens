@@ -33,7 +33,7 @@ if (process.env.NODE_ENV === 'development') {
 
 export async function getDatabase(): Promise<Db> {
     const client = await clientPromise;
-    return client.db('autoscan');
+    return client.db('AutoScan');
 }
 
 export default clientPromise;
