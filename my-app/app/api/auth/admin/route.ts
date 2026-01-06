@@ -43,10 +43,14 @@ export async function POST(request: NextRequest) {
         });
 
         return response;
-    } catch (error) {
-        console.error('Error during admin login:', error);
+    } catch (error: any) {
+        console.error('SERVER ERROR during admin login:', error);
+        console.error('Error Stack:', error.stack);
         return NextResponse.json(
-            { error: 'Login failed' },
+            {
+                error: 'Login failed',
+                details: error.message
+            },
             { status: 500 }
         );
     }
