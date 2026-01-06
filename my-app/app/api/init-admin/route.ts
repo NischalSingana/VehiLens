@@ -1,6 +1,10 @@
 import { NextResponse } from 'next/server';
 import { initializeDefaultAdmin } from '@/lib/db/models/Admin';
 
+export async function GET() {
+    return POST();
+}
+
 export async function POST() {
     try {
         await initializeDefaultAdmin();
