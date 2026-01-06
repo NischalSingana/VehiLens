@@ -64,40 +64,40 @@ export default function ImageUpload({
             {!preview ? (
                 <div
                     {...getRootProps()}
-                    className={`border-2 border-dashed rounded-xl p-8 text-center cursor-pointer transition-all ${isDragActive
-                            ? 'border-blue-500 bg-blue-50'
-                            : 'border-slate-300 hover:border-blue-400 hover:bg-slate-50'
+                    className={`border-2 border-dashed rounded-xl min-h-[400px] flex flex-col items-center justify-center p-8 text-center cursor-pointer transition-all ${isDragActive
+                        ? 'border-blue-500 bg-blue-50'
+                        : 'border-slate-300 hover:border-blue-400 hover:bg-slate-50'
                         }`}
                 >
                     <input {...getInputProps()} />
 
-                    <div className="flex flex-col items-center gap-4">
-                        <div className="w-16 h-16 rounded-full bg-blue-100 flex items-center justify-center">
-                            <svg className="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <div className="flex flex-col items-center gap-6">
+                        <div className="w-24 h-24 rounded-full bg-blue-100 flex items-center justify-center shadow-sm">
+                            <svg className="w-12 h-12 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
                             </svg>
                         </div>
 
                         <div>
-                            <p className="text-lg font-semibold text-slate-700">
+                            <p className="text-xl font-bold text-slate-800">
                                 {isDragActive ? 'Drop image here' : 'Drag & drop an image'}
                             </p>
-                            <p className="text-sm text-slate-500 mt-1">
+                            <p className="text-slate-500 mt-2 text-lg">
                                 or click to browse
                             </p>
                         </div>
 
-                        <p className="text-xs text-slate-400">
+                        <p className="text-sm text-slate-400 bg-slate-100 px-4 py-1 rounded-full">
                             Supported: JPEG, PNG, WebP (max {maxSize / (1024 * 1024)}MB)
                         </p>
                     </div>
                 </div>
             ) : (
-                <div className="relative rounded-xl overflow-hidden border-2 border-slate-200">
+                <div className="relative rounded-xl overflow-hidden border-2 border-slate-200 bg-slate-900 flex justify-center">
                     <img
                         src={preview}
                         alt="Preview"
-                        className="w-full h-64 object-cover"
+                        className="w-auto h-auto max-h-[70vh] object-contain"
                     />
                     <button
                         onClick={handleRemove}
