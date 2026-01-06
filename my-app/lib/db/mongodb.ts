@@ -6,8 +6,7 @@ if (!process.env.MONGODB_URI) {
 
 const uri = process.env.MONGODB_URI;
 const options = {
-    tls: false, // Disable TLS for local MongoDB
-    directConnection: true,
+    tls: true,
 };
 
 let client: MongoClient;
