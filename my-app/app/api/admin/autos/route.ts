@@ -76,7 +76,8 @@ export async function POST(request: NextRequest) {
             auto,
         }, { status: 201 });
     } catch (error: any) {
-        console.error('Error creating auto record:', error);
+        console.error('SERVER ERROR creating auto record:', error);
+        console.error('Error Stack:', error.stack);
 
         // Handle duplicate vehicle number
         if (error.code === 11000) {
@@ -87,7 +88,10 @@ export async function POST(request: NextRequest) {
         }
 
         return NextResponse.json(
-            { error: 'Failed to create auto record' },
+            {
+                error: 'Failed to create auto record',
+                details: error.message
+            },
             { status: 500 }
         );
     }
