@@ -8,6 +8,7 @@ export async function getAutosCollection(): Promise<Collection<Auto>> {
 
     // Create indexes for efficient searching
     await collection.createIndex({ vehicleNumber: 1 }, { unique: true });
+    await collection.createIndex({ licenseNumber: 1 }, { unique: true, sparse: true }); // sparse allows null/missing for old records
     await collection.createIndex({ driverName: 'text' });
     await collection.createIndex({ createdAt: -1 });
 

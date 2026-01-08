@@ -1,45 +1,40 @@
 import { z } from 'zod';
 
 /**
- * Indian vehicle registration number pattern
- * Format: XX 00 XX 0000 (State Code, District Code, Series, Number)
- * Accepts with or without spaces
+ * Relaxed Vehicle Number Schema
+ * Accepts any string as long as it's not empty
  */
 export const vehicleNumberSchema = z
     .string()
-    .min(1, 'Vehicle number is required')
-    // Allow 1-3 digits for district, 1-3 letters for series, 1-4 digits for number
-    // Regex: ^[A-Z]{2,3} (State) \s* \d{1,2} (District) \s* [A-Z]{0,3} (Series) \s* \d{1,4} (Number)$
-    .regex(
-        /^[A-Z]{2,3}\s*\d{1,2}\s*[A-Z]{0,3}\s*\d{1,4}$/i,
-        'Invalid vehicle number format. Expected format: KA 01 AB 1234'
-    );
+    .min(1, 'Vehicle number is required');
 
 /**
- * Driver name validation
+ * Relaxed Driver Name Schema
  */
 export const driverNameSchema = z
     .string()
-    .min(2, 'Driver name must be at least 2 characters')
-    .max(100, 'Driver name must not exceed 100 characters')
-    // Allow letters, numbers, spaces, periods, hyphens, and apostrophes
-    .regex(/^[a-zA-Z0-9\s.\-']+$/, 'Driver name contains invalid characters');
+    .min(1, 'Driver name is required');
 
 /**
- * Area/zone validation
+ * Area/zone validation - (Deprecated/Unused but kept for type safety if needed temporarily)
  */
-export const areaSchema = z
-    .string()
-    .min(2, 'Area must be at least 2 characters')
-    .max(100, 'Area must not exceed 100 characters');
+export const areaSchema = z.string().optional();
 
 /**
- * Complete auto form validation schema
+ * Relaxed Auto Form Schema
+ * Minimal constraints to allow flexible data entry
  */
 export const autoFormSchema = z.object({
     driverName: driverNameSchema,
     vehicleNumber: vehicleNumberSchema,
-    area: areaSchema,
+    // Professional Details - Relaxed
+    licenseNumber: z.string().min(1, 'License number is required'),
+    driverAddress: z.string().min(1, 'Address is required'),
+    driverPhone: z.string().min(1, 'Phone number is required'),
+    // Optional
+    bloodGroup: z.string().optional(),
+    emergencyContact: z.string().optional(),
+    status: z.enum(['Active', 'Suspended', 'Pending']).default('Active'),
 });
 
 /**

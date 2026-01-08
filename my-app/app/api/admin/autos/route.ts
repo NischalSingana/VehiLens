@@ -24,14 +24,30 @@ export async function POST(request: NextRequest) {
         // Extract form fields
         const driverName = formData.get('driverName') as string;
         const vehicleNumber = formData.get('vehicleNumber') as string;
-        const area = formData.get('area') as string;
+        // area removed
         const imageFile = formData.get('image') as File;
+
+        // Professional Details
+        const licenseNumber = formData.get('licenseNumber') as string;
+        // badgeNumber, ownerName removed
+        const driverAddress = formData.get('driverAddress') as string;
+        const driverPhone = formData.get('driverPhone') as string;
+        const bloodGroup = formData.get('bloodGroup') as string | undefined;
+        const emergencyContact = formData.get('emergencyContact') as string | undefined;
+        const status = (formData.get('status') as any) || 'Active';
 
         // Validate form data
         const validation = autoFormSchema.safeParse({
             driverName,
             vehicleNumber,
-            area,
+            // area removed
+            licenseNumber,
+            // badgeNumber, ownerName removed
+            driverAddress,
+            driverPhone,
+            bloodGroup,
+            emergencyContact,
+            status,
         });
 
         if (!validation.success) {
@@ -65,9 +81,8 @@ export async function POST(request: NextRequest) {
 
         // Create auto record in database
         const auto = await createAuto({
-            driverName: validation.data.driverName,
-            vehicleNumber: validation.data.vehicleNumber.replace(/\s/g, '').toUpperCase(),
-            area: validation.data.area,
+            ...validation.data,
+            vehicleNumber: validation.data.vehicleNumber.toUpperCase(),
             imageUrl,
         });
 
@@ -80,9 +95,13 @@ export async function POST(request: NextRequest) {
         console.error('Error Stack:', error.stack);
 
         // Handle duplicate vehicle number
+        // Handle duplicate fields
         if (error.code === 11000) {
+            const field = Object.keys(error.keyPattern)[0];
+            const fieldName = field === 'vehicleNumber' ? 'Vehicle number' :
+                field === 'licenseNumber' ? 'License number' : field;
             return NextResponse.json(
-                { error: 'Vehicle number already exists in the system' },
+                { error: `${fieldName} already exists in the system` },
                 { status: 409 }
             );
         }

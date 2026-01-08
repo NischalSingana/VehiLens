@@ -64,11 +64,18 @@ def preprocess_plate_for_ocr(plate_image: np.ndarray, method='standard') -> np.n
         kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (3, 3))
         morph = cv2.morphologyEx(thresh, cv2.MORPH_CLOSE, kernel)
         
-        # Resize if too small (height < 60)
+        # Resize if too small (make it significantly larger for EasyOCR)
         h, w = morph.shape
-        if h < 60:
-            scale = 60 / h
-            morph = cv2.resize(morph, (int(w * scale), 60))
+        target_height = 128
+        if h < target_height:
+            scale = target_height / h
+            morph = cv2.resize(morph, (int(w * scale), target_height), interpolation=cv2.INTER_CUBIC)
+            
+        # Sharpening (Helps with blurred numbers)
+        kernel_sharpen = np.array([[-1,-1,-1], 
+                                   [-1, 9,-1], 
+                                   [-1,-1,-1]])
+        morph = cv2.filter2D(morph, -1, kernel_sharpen)
             
         return morph
         
@@ -86,7 +93,9 @@ def validate_indian_plate(text: str) -> bool:
         
     # Standard format: KA01AB1234 or KA01A1234
     # State (2 chars) + District (1-2 digits) + Series (1-2 chars) + Number (4 digits)
-    pattern = r'^[A-Z]{2}[0-9]{1,2}[A-Z]{1,2}[0-9]{4}$'
+    # Standard format: KA01AB1234 (Private) or AP39T2436 (Commercial)
+    # State (2 chars) + District (1-2 digits) + Series (0-3 chars) + Number (3-4 digits)
+    pattern = r'^[A-Z]{2}[0-9]{1,2}[A-Z]{0,3}[0-9]{3,4}$'
     return bool(re.match(pattern, text))
 
 def clean_ocr_text(text: str) -> str:

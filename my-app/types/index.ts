@@ -4,8 +4,16 @@ export interface Auto {
   _id?: ObjectId;
   driverName: string;
   vehicleNumber: string;
-  area: string;
   imageUrl: string;
+  // Professional Details
+  licenseNumber: string;
+  driverAddress: string;
+  driverPhone: string;
+  // Emergency Info
+  bloodGroup?: string;
+  emergencyContact?: string;
+  // Status
+  status: 'Active' | 'Suspended' | 'Pending';
   createdAt: Date;
   updatedAt: Date;
 }

@@ -1,5 +1,5 @@
 const ALLOWED_IMAGE_TYPES = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
-const MAX_AUTO_IMAGE_SIZE = 5 * 1024 * 1024; // 5MB
+const MAX_AUTO_IMAGE_SIZE = 10 * 1024 * 1024; // 10MB
 const MAX_SEARCH_IMAGE_SIZE = 10 * 1024 * 1024; // 10MB
 
 export interface ImageValidationResult {
