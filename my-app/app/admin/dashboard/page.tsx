@@ -168,7 +168,7 @@ export default function AdminDashboard() {
                                 </svg>
                             </div>
                             <div>
-                                <h1 className="text-xl font-bold text-white tracking-tight">AUTOSCAN <span className="text-amber-500">ADMIN</span></h1>
+                                <h1 className="text-xl font-bold text-white tracking-tight">VEHILENS <span className="text-amber-500">ADMIN</span></h1>
                                 <p className="text-[10px] uppercase tracking-widest text-slate-400 font-semibold">Department of Transport Safety</p>
                             </div>
                         </div>
