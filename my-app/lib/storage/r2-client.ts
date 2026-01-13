@@ -70,7 +70,7 @@ export async function uploadImageToR2(
         return saveImageLocally(file, fileName);
     }
 
-    const bucketName = process.env.R2_BUCKET_NAME || 'autoscan-images';
+    const bucketName = process.env.R2_BUCKET_NAME || 'vehilens-images';
     const publicUrl = process.env.R2_PUBLIC_URL || '';
 
     // Generate unique filename with timestamp
@@ -96,7 +96,7 @@ export async function deleteImageFromR2(imageUrl: string): Promise<void> {
         return deleteImageLocally(imageUrl);
     }
 
-    const bucketName = process.env.R2_BUCKET_NAME || 'autoscan-images';
+    const bucketName = process.env.R2_BUCKET_NAME || 'vehilens-images';
 
     // Extract filename from URL
     const fileName = imageUrl.split('/').pop();
