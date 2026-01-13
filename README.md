@@ -290,11 +290,3 @@ gunicorn -w 4 -k uvicorn.workers.UvicornWorker main:app
 ## 📝 License
 
 MIT License - see LICENSE file for details
-
-## 👥 Support
-
-For issues or questions, please open an issue on GitHub.
-
----
-
-**Built with ❤️ for police and authority use**
