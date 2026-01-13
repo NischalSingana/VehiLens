@@ -1,8 +1,8 @@
-# AutoScan – Auto & Driver Identification System
+# VehiLens – Vehicle Identification System
 
 A secure, scalable web application for police/authority use to manage and search auto-rickshaw driver records using text and AI-powered image search.
 
-![AutoScan](https://img.shields.io/badge/Status-Production%20Ready-green)
+![VehiLens](https://img.shields.io/badge/Status-Production%20Ready-green)
 ![Next.js](https://img.shields.io/badge/Next.js-16.1-black)
 ![Python](https://img.shields.io/badge/Python-3.10+-blue)
 ![MongoDB](https://img.shields.io/badge/MongoDB-6.0+-green)
@@ -47,7 +47,7 @@ A secure, scalable web application for police/authority use to manage and search
 
 ```bash
 git clone <repository-url>
-cd AutoScan
+cd VehiLens
 ```
 
 ### 2. Setup Next.js Application
@@ -69,13 +69,13 @@ Edit `.env.local`:
 
 ```env
 # MongoDB
-MONGODB_URI=mongodb://localhost:27017/autoscan
+MONGODB_URI=mongodb://localhost:27017/vehilens
 
 # Cloudflare R2
 R2_ACCOUNT_ID=your_account_id
 R2_ACCESS_KEY_ID=your_access_key
 R2_SECRET_ACCESS_KEY=your_secret_key
-R2_BUCKET_NAME=autoscan-images
+R2_BUCKET_NAME=vehilens-images
 R2_PUBLIC_URL=https://your-bucket.r2.dev
 
 # Admin Credentials
@@ -187,7 +187,7 @@ Open `http://localhost:3000` in your browser.
 ## 📁 Project Structure
 
 ```
-AutoScan/
+VehiLens/
 ├── my-app/                    # Next.js application
 │   ├── app/                   # App router pages
 │   │   ├── page.tsx          # Home page
