@@ -6,7 +6,7 @@ import io
 from PIL import Image
 import numpy as np
 
-app = FastAPI(title="AutoScan AI Service", version="1.0.0")
+app = FastAPI(title="VehiLens AI Service", version="1.0.0")
 
 # CORS middleware
 app.add_middleware(
@@ -20,7 +20,7 @@ app.add_middleware(
 @app.get("/")
 async def root():
     return {
-        "service": "AutoScan AI Service",
+        "service": "VehiLens AI Service",
         "status": "running",
         "endpoints": ["/process-image"]
     }
