@@ -18,7 +18,7 @@ export async function GET(
             return new NextResponse('Storage service unavailable', { status: 503 });
         }
 
-        const bucketName = process.env.R2_BUCKET_NAME || 'autoscan-images';
+        const bucketName = process.env.R2_BUCKET_NAME || 'vehilens-images';
 
         const command = new GetObjectCommand({
             Bucket: bucketName,
