@@ -1,4 +1,4 @@
-# 🎉 AutoScan API - Quick Reference Guide
+# 🎉 VehiLens API - Quick Reference Guide
 
 ## ✅ Current Status
 
@@ -12,7 +12,7 @@
 
 ### Start the Server
 ```bash
-cd /Users/nischalsingana/DEV/AutoScan/ai-service
+cd /Users/nischalsingana/DEV/VehiLens/ai-service
 source venv/bin/activate
 python main.py
 ```
